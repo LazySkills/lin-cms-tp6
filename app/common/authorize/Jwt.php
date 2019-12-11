@@ -12,61 +12,16 @@ class Jwt
     private $type = 'Bearer';
     private $uniqueId = null;
     private $signature = null;
-    
-    /**
-     * @return string
-     */
-    public function getType(): string
-    {
-        return $this->type;
-    }
 
-    /**
-     * @param string $type
-     */
-    public function setType(string $type): void
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * @return null
-     */
-    public function getUniqueId()
-    {
-        return $this->uniqueId;
-    }
-
-    /**
-     * @param null $uniqueId
-     */
-    public function setUniqueId($uniqueId): void
-    {
-        $this->uniqueId = $uniqueId;
-    }
-
-    /**
-     * @return null
-     */
-    public function getSignature()
-    {
-        return $this->signature;
-    }
-
-    /**
-     * @param null $signature
-     */
-    public function setSignature($signature): void
-    {
-        $this->signature = $signature;
-    }
 
     /**
      * @param string $key
+     * @return $this
      */
     public function setKey(string $key)
     {
         $this->key = $key;
+        return $this;
     }
 
 

@@ -14,7 +14,6 @@ use app\validate\User;
 
 /**
  * Class Index
- * @Group("index")
  * @package app\controller
  */
 class Index extends BaseController
@@ -28,29 +27,5 @@ class Index extends BaseController
     public function hello($name = 'ThinkPHP6')
     {
         return 'hello,' . $name;
-    }
-
-    /**
-     * @Route(value="test",method="GET")
-     * @Param(value="name",doc="名称",rule={"require","number","alphaDash"})
-     * @Param(value="age",doc="年纪",rule={"require","number"})
-     * @Jwt()
-     * @Doc(value="推荐测试",group="推荐",hide="false")
-     */
-    public function test()
-    {
-        return 'PAA';
-    }
-
-    /**
-     * @Route(value="miss",method="GET")
-     * @Param(value="name",doc="名称",rule={"require","number","alphaDash"})
-     * @Param(value="age",doc="年纪",rule={"require","number"})
-     * @Jwt()
-     * @Doc(value="缓存",hide="false")
-     */
-    public function miss()
-    {
-        return 'PAA';
     }
 }
