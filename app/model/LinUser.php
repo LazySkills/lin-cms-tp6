@@ -36,6 +36,61 @@ class LinUser extends BaseModel
         return $user;
     }
 
+    /** 修改用户信息 */
+    public static function updateUserInfo(int $uid,array $params = [])
+    {
+        try{
+            $user = self::where('id','=',$uid)->findOrFail();
+        }catch (\Exception $exception){
+            throw new UserException();
+        }
+        if (isset($params['email']) && $user['email'] != $params['email']) {
+            $exists = self::where('email', $params['email'])
+                ->field('email')
+                ->find();
+
+            if ($exists) throw  new UserException([
+                'code' => 400,
+                'msg' => '注册邮箱重复，请重新输入',
+                'error_code' => 10030
+            ]);
+        }
+        $user->save($params);
+    }
+
+    /** 获取用户权限 */
+    public static function getUserByUID(int $uid)
+    {
+        try {
+            $user = self::where('id','=',$uid)->findOrFail()->toArray();
+        } catch (\Exception $ex) {
+            throw new UserException();
+        }
+        $auths = LinAuth::getAuthByGroupID($user['group_id']);
+
+        $auths = empty($auths) ? [] : split_modules($auths);
+
+        $user['auths'] = $auths;
+
+        return $user;
+    }
+
+    public static function createUser($params)
+    {
+        $user = self::where('username', $params['username'])->find();
+        if ($user) {
+            throw new UserException('用户名重复，请重新输入');
+        }
+        $user = self::where('email', $params['email'])->find();
+        if ($user) {
+            throw new UserException('注册邮箱重复，请重新输入');
+        }
+        $params['password'] = md5($params['password']);
+        $params['admin'] = 1;
+        $params['active'] = 1;
+        self::create($params);
+    }
+
     /** 核验密码 */
     private static function checkPassword(string $md5Password,string $password)
     {

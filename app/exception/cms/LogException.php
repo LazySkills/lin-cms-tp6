@@ -4,9 +4,9 @@
 namespace app\exception\cms;
 
 
-class UserException extends \Exception
+class LogException extends \Exception
 {
-    protected $message = '账户不存在';
+    protected $message = '暂无数据';
     protected $code = 400;
-    protected $error_code = 1100;
+    protected $error_code = 1101;
 }

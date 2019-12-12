@@ -4,9 +4,9 @@
 namespace app\exception;
 
 
-class AuthenticationException extends \Exception
+class ParameterException extends \Exception
 {
-    protected $message = '鉴权错误🙅';
+    protected $message = '参数错误🙅';
     protected $code = 400;
-    protected $error_code = 1002;
+    protected $error_code = 1001;
 }

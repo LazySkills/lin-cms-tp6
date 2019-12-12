@@ -12,7 +12,7 @@ final class Jwt extends Handler
     public function func(\ReflectionMethod $refMethod, Annotation $annotation, \think\route\RuleItem &$rule)
     {
         if ($this->isCurrentMethod($rule)){
-            (new \app\common\authorize\Jwt())->check();
+            \app\common\authorize\Jwt::check();
         }
     }
 

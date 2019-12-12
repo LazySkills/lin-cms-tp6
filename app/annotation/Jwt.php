@@ -13,5 +13,4 @@ use Doctrine\Common\Annotations\Annotation;
  */
 final class Jwt extends Annotation
 {
-    // TODO 完成你对注解字段的定义
 }

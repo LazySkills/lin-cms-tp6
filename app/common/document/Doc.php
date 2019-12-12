@@ -257,7 +257,7 @@ final class Doc
                 redirect('/paa/login')->send();
                 exit;
             }
-            $jwt = $this->jwt->decrypt($token);
+            $jwt = $this->jwt->decode($token);
             if (!isset($jwt['uniqueId'])) {
                 redirect('/paa/login')->send();
                 exit;

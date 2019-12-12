@@ -3,16 +3,18 @@
 namespace app\controller\cms;
 
 use app\annotation\{
-    Doc,Jwt,Param
+    Doc,Jwt as JwtAnnotation,Param,LoggerAnnotation
 };
-use app\model\BaseModel;
-use app\model\LinUser;
 use think\annotation\route\{
     Group,Route,Validate
 };
 use app\validate\cms\User as UserValidate;
+use app\common\log\Logger;
+use app\common\authorize\Jwt;
+use app\model\LinUser;
 
 /**
+ * cms管理系统
  * Class User
  * @Group("cms/user")
  * @package app\controller
@@ -21,18 +23,74 @@ class User
 {
 
     /**
-     * cms管理系统登陆
      * @Route(value="login",method="POST")
      * @Validate(value=UserValidate::class,scene="login")
-     * @Doc(value="测试应用",group="管理.应用",hide="false")
+     * @Doc(value="登陆",group="管理.用户",hide="false")
      */
     public function login()
     {
         $user = LinUser::verify(input('username'), input('password'));
-        $result = (new \app\common\authorize\Jwt())->encode(strval($user->id),json_encode($user->toArray()));
+        $result = Jwt::encode(strval($user->id),json_encode($user->toArray()));
+        Logger::create($user->id,$user->username,'登陆成功获取了令牌');
         return json($result,200);
     }
 
+    /**
+     * @Route(value="refresh",method="GET")
+     * @JwtAnnotation()
+     * @Doc(value="刷新授权",group="管理.用户",hide="false")
+     */
+    public function refresh()
+    {
+        $result = Jwt::refresh();
+        return json($result,200);
+    }
 
+    /**
+     * @Route(value=" ",method="PUT")
+     * @JwtAnnotation()
+     * @Doc(value="更新用户信息",group="管理.用户",hide="false")
+     */
+    public function update()
+    {
+        $result = Jwt::decode();
+        LinUser::updateUserInfo($result['uniqueId'], request()->put());
+        return writeJson(201,'','操作成功');
+    }
 
+    /**
+     * @Route(value="information",method="GET")
+     * @JwtAnnotation()
+     * @Doc(value="获取用户信息",group="管理.用户",hide="false")
+     */
+    public function information()
+    {
+        $jwt = Jwt::decode();
+        return json(json_decode($jwt['signature'],true),200);
+    }
+
+    /**
+     * @Route(value="auths",method="GET")
+     * @JwtAnnotation()
+     * @Doc(value="查询自己拥有的权限",group="管理.用户",hide="false")
+     */
+    public function getAllowedApis()
+    {
+        $jwt = Jwt::decode();
+        $result = LinUser::getUserByUID($jwt['uniqueId']);
+        return json($result,200);
+    }
+
+    /**
+     * @Route(value="register",method="POST")
+     * @JwtAnnotation()
+     * @LoggerAnnotation(value="创建了一个用户")
+     * @Doc(value="创建用户",group="管理.用户",hide="false")
+     */
+    public function register()
+    {
+        LinUser::createUser(request()->post());
+
+        return writeJson(201, '', '用户创建成功');
+    }
 }

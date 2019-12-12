@@ -11,6 +11,8 @@ final class Logger extends Handler
 
     public function func(\ReflectionMethod $refMethod, Annotation $annotation, \think\route\RuleItem &$rule)
     {
-        dump($annotation);die;
+        if ($this->isCurrentMethod($rule)){
+            \app\common\log\Logger::annotation($annotation->value);
+        }
     }
 }
