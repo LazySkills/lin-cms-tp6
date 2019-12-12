@@ -3,7 +3,7 @@
 namespace app\controller\cms;
 
 use app\annotation\{
-    Doc,Jwt as JwtAnnotation,Param,LoggerAnnotation
+    Doc,Jwt as JwtAnnotation,Logger as LoggerAnnotation
 };
 use think\annotation\route\{
     Group,Route,Validate
@@ -33,6 +33,18 @@ class User
         $result = Jwt::encode(strval($user->id),json_encode($user->toArray()));
         Logger::create($user->id,$user->username,'登陆成功获取了令牌');
         return json($result,200);
+    }
+
+    /**
+     * @Route(value="register",method="POST")
+     * @LoggerAnnotation(value="创建了一个用户")
+     * @Doc(value="创建用户",group="管理.用户",hide="false")
+     */
+    public function register()
+    {
+        LinUser::createUser(request()->post());
+
+        return writeJson(201, '', '用户创建成功');
     }
 
     /**
@@ -82,15 +94,27 @@ class User
     }
 
     /**
-     * @Route(value="register",method="POST")
+     * @Route(value="avatar",method="PUT")
      * @JwtAnnotation()
-     * @LoggerAnnotation(value="创建了一个用户")
-     * @Doc(value="创建用户",group="管理.用户",hide="false")
+     * @Doc(value="设置用户头像",group="管理.用户",hide="false")
      */
-    public function register()
+    public function setAvatar()
     {
-        LinUser::createUser(request()->post());
+        $jwt = Jwt::decode();
+        LinUser::updateUserAvatar($jwt['uniqueId'],request()->put('avatar'));
+        return writeJson(201, '', '更新头像成功');
+    }
 
-        return writeJson(201, '', '用户创建成功');
+    /**
+     * @Route(value="change_password",method="PUT")
+     * @LoggerAnnotation(value="修改了自己的密码")
+     * @Doc(value="修改用户密码",group="管理.用户",hide="false")
+     */
+    public function changePassword()
+    {
+        $jwt = Jwt::decode();
+        LinUser::changePassword($jwt['uniqueId'], request()->put());
+
+        return writeJson(201, '', '密码修改成功');
     }
 }

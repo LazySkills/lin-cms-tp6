@@ -93,7 +93,7 @@
                     <dl class="layui-nav-child">
                         <dd data-name="{$twoKey}" >
                             <a href="javascript:;" style="text-align: left;margin-left: 10px;font-size: 22px">
-                                <i class="layui-icon layui-icon-spread-left"></i>
+                                <i class="layui-icon layui-icon-circle"></i>
                                 <cite>&nbsp;{$twoKey}</cite>
                             </a>
                             {if is_array(current($two)) }
@@ -101,7 +101,7 @@
                                 <dl class="layui-nav-child">
                                     <dd data-name="{$threeKey}" >
                                         <a href="javascript:;" style="text-align: left;margin-left: 25px;font-size: 22px">
-                                            <i class="layui-icon layui-icon-spread-left"></i>
+                                            <i class="layui-icon layui-icon-about"></i>
                                             <cite>&nbsp;{$threeKey}</cite>
                                         </a>
                                         <dl class="layui-nav-child">

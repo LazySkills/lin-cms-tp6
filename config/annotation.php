@@ -16,5 +16,6 @@ return [
         \app\annotation\Param::class => \app\annotation\handler\Param::class,
         \app\annotation\Jwt::class => \app\annotation\handler\Jwt::class,
         \app\annotation\Doc::class => \app\annotation\handler\Doc::class,
+        \app\annotation\Logger::class => \app\annotation\handler\Logger::class,
     ]
 ];

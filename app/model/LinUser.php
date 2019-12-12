@@ -91,6 +91,27 @@ class LinUser extends BaseModel
         self::create($params);
     }
 
+    public static function updateUserAvatar($uid, $url)
+    {
+        $user = LinUser::find($uid);
+        if (!$user) {
+            throw new UserException();
+        }
+        $user->avatar = $url;
+        $user->save();
+    }
+
+    public static function changePassword($uid, $params)
+    {
+        $user = self::find($uid);
+        if (!self::checkPassword($user->password, $params['old_password'])) {
+            throw new UserException('原始密码错误，请重新输入');
+        }
+
+        $user->password = md5($params['new_password']);
+        $user->save();
+    }
+
     /** 核验密码 */
     private static function checkPassword(string $md5Password,string $password)
     {

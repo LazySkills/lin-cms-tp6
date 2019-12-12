@@ -25,11 +25,12 @@ class Jwt
 
     public static function decode(string $token = '')
     {
-        $getHeaderAuthorization = function (){
-            list($type, $token) = $this->getHeaderAuthorization();
-            return $token;
-        };
-        return static::$data ?? static::check($token ?? $getHeaderAuthorization());
+        if (empty($token)){
+            static::check();
+        }else{
+            static::$data = (array)FirebaseJwt::decode($token,config('lincms.jwt.key'),['HS256']);
+        }
+        return static::$data;
     }
 
     public static function getHeaderAuthorization(){
@@ -99,6 +100,6 @@ class Jwt
         }else{
             unset($payload['exp']);
         }
-        return FirebaseJwt::encode($payload, config('lincms.jwt.key'));
+        return FirebaseJwt::encode($payload, config('lincms.jwt.key'), 'HS256');
     }
 }
