@@ -4,7 +4,7 @@
 namespace app\exception\cms;
 
 
-class UserException extends \Exception
+class LinUserException extends \Exception
 {
     protected $message = '账户不存在';
     protected $code = 400;

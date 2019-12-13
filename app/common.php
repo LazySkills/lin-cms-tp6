@@ -9,6 +9,17 @@ function paginate(){
     return [$start, $count];
 }
 
+function pageDate($list,$total,$start,$count)
+{
+    return [
+        'items' => $list,
+        'total' => $total,
+        'count' => $count,
+        'page' => $start / $count,
+        'total_page' => ceil($total / $count)
+    ];
+}
+
 function writeJson($code, $data, $msg = 'ok', $errorCode = 0)
 {
     $data = [

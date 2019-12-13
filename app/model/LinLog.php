@@ -4,7 +4,7 @@
 namespace app\model;
 
 
-use app\exception\cms\LogException;
+use app\exception\cms\LinLogException;
 use think\db\Query;
 
 /**
@@ -36,7 +36,7 @@ class LinLog extends BaseModel
 
         $totalNums = $logs->count();
         $logs = $logs->limit($start, $count)->select();
-        if (!$logs) throw new LogException();
+        if (!$logs) throw new LinLogException();
 
         return [
             'items' => $logs,

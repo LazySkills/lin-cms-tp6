@@ -4,7 +4,7 @@
 namespace app\exception\cms;
 
 
-class LogException extends \Exception
+class LinLogException extends \Exception
 {
     protected $message = '暂无数据';
     protected $code = 400;

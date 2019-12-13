@@ -14,7 +14,7 @@ use app\common\authorize\Jwt;
 use app\model\LinUser;
 
 /**
- * cms管理系统
+ * cms用户管理
  * Class User
  * @Group("cms/user")
  * @package app\controller
@@ -37,6 +37,7 @@ class User
 
     /**
      * @Route(value="register",method="POST")
+     * @Validate(value=UserValidate::class,scene="register")
      * @LoggerAnnotation(value="创建了一个用户")
      * @Doc(value="创建用户",group="管理.用户",hide="false")
      */
