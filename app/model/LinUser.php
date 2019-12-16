@@ -36,10 +36,6 @@ class LinUser extends BaseModel
             return $item;
         }, $userList->toArray());
 
-        dump($start);
-        dump($count);
-        dump($totalNums);
-        dump($userList);die;
         return pageDate($userList,$totalNums,$start,$count);
     }
 
@@ -132,6 +128,18 @@ class LinUser extends BaseModel
         $user = self::find($uid);
         if (!self::checkPassword($user->password, $params['old_password'])) {
             throw new LinUserException('原始密码错误，请重新输入');
+        }
+
+        $user->password = md5($params['new_password']);
+        $user->save();
+    }
+
+    /** 重置密码 */
+    public static function resetPassword(array $params = [])
+    {
+        $user = LinUser::find($params['uid']);
+        if (!$user) {
+            throw new LinUserException();
         }
 
         $user->password = md5($params['new_password']);

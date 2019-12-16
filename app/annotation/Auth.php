@@ -6,15 +6,19 @@ namespace app\annotation;
 use Doctrine\Common\Annotations\Annotation;
 
 /**
- * class Logger
+ * class Auth
  * @package app\annotation
  * @Annotation
  * @Target({"METHOD"})
  */
-final class Logger extends Annotation
+final class Auth extends Annotation
 {
+    /** @var string */
+    public $group;
+
     /**
-     * @var array
+     * @var string
+     * @Enum({"false","true"})
      */
-    public $format;
+    public $hide;
 }

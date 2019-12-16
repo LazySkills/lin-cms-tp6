@@ -3,8 +3,7 @@
 
 namespace app\model;
 
-
-use app\exception\cms\LinUserException;
+use app\exception\cms\LinGroupException;
 
 /**
  * 管理系统平台用户分组
@@ -13,24 +12,14 @@ use app\exception\cms\LinUserException;
  */
 class LinGroup extends BaseModel
 {
-    /**
-     * @param $id
-     * @return array|\PDOStatement|string|\think\Model
-     * @throws GroupException
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
-     */
+
+
     public static function getGroupByID($id)
     {
         try {
             $group = self::findOrFail($id)->toArray();
-        } catch (Exception $ex) {
-            throw new GroupException([
-                'code' => 404,
-                'msg' => '指定的分组不存在',
-                'errorCode' => 30003
-            ]);
+        } catch (\Exception $ex) {
+            throw new LinGroupException('指定的分组不存在');
         }
 
         $auths = LinAuth::getAuthByGroupID($group['id']);
@@ -41,23 +30,11 @@ class LinGroup extends BaseModel
 
     }
 
-    /**
-     * @param $params
-     * @throws GroupException
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
-     * @throws \ReflectionException
-     * @throws \Exception
-     */
     public static function createGroup($params)
     {
         $group = self::where('name', $params['name'])->find();
         if ($group) {
-            throw new GroupException([
-                'errorCode' => 30004,
-                'msg' => '分组已存在'
-            ]);
+            throw new LinGroupException('分组已存在');
         }
 
         Db::startTrans();
@@ -74,12 +51,9 @@ class LinGroup extends BaseModel
 
             (new LinAuth())->saveAll($auths);
             Db::commit();
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             Db::rollback();
-            throw new GroupException([
-                'errorCode' => 30001,
-                'msg' => '分组创建失败'
-            ]);
+            throw new LinGroupException('分组创建失败');
         }
     }
 

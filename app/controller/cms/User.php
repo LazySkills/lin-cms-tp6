@@ -14,8 +14,7 @@ use app\common\authorize\Jwt;
 use app\model\LinUser;
 
 /**
- * cms用户管理
- * Class User
+ * Class User cms用户管理
  * @Group("cms/user")
  * @package app\controller
  */

@@ -3,9 +3,10 @@
 use app\exception\ParameterException;
 
 function paginate(){
-    $count = intval(request()->get('count')) ?? 10;
-    $start = intval(request()->get('page')) ?? 0;
+    $count = request()->get('count') ?? 10;
+    $start = request()->get('page') ?? 0;
     if ($start < 0 || $count < 0) throw new ParameterException();
+    $start = $start * $count;
     return [$start, $count];
 }
 
@@ -30,7 +31,7 @@ function writeJson($code, $data, $msg = 'ok', $errorCode = 0)
     return json($data, $code);
 }
 
-function split_modules($auths, $key = 'module')
+function split_modules($auths, $module = 'module')
 {
     if (empty($auths)) {
         return [];
@@ -40,10 +41,10 @@ function split_modules($auths, $key = 'module')
     $result = [];
 
     foreach ($auths as $key => $value) {
-        if (isset($items[$value['module']])) {
-            $items[$value['module']][] = $value;
+        if (isset($items[$value[$module]])) {
+            $items[$value[$module]][] = $value;
         } else {
-            $items[$value['module']] = [$value];
+            $items[$value[$module]] = [$value];
         }
     }
     foreach ($items as $key => $value) {
@@ -54,4 +55,19 @@ function split_modules($auths, $key = 'module')
     }
     return $result;
 
+}
+
+function findAuthModule($auth)
+{
+    $authMap = (new AuthMap())->run();
+    foreach ($authMap as $key => $value) {
+        foreach ($value as $k => $v) {
+            if ($auth === $k) {
+                return [
+                    'auth' => $k,
+                    'module' => $key
+                ];
+            }
+        }
+    }
 }
