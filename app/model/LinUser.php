@@ -146,6 +146,16 @@ class LinUser extends BaseModel
         $user->save();
     }
 
+    public static function deleteUser(int $uid)
+    {
+        $user = LinUser::find($uid);
+        if (!$user) {
+            throw new LinUserException();
+        }
+
+        LinUser::destroy($uid);
+    }
+
     /** 核验密码 */
     private static function checkPassword(string $md5Password,string $password)
     {

@@ -6,6 +6,7 @@ namespace app\common\log;
 
 use app\common\authorize\Jwt;
 use app\model\Linlog;
+use Doctrine\Common\Annotations\Annotation;
 use think\facade\Log;
 
 class Logger
@@ -31,9 +32,11 @@ class Logger
     }
 
     /** 通过注解完成日志 */
-    public static function annotation(string $messgae = ''){
+    public static function annotation(Annotation $annotation,array $params = []){
+        dump($annotation);
+        dump($params);die;
         $jwt = Jwt::decode();
         $userInfo = json_decode($jwt['signature'],true);
-        static::create($userInfo['id'],$userInfo['username'],$messgae);
+        static::create($userInfo['id'],$userInfo['username'],'');
     }
 }

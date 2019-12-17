@@ -2,14 +2,11 @@
 
 namespace app\controller\cms;
 
-use app\annotation\{Auth, Doc, Jwt as JwtAnnotation, Logger as LoggerAnnotation};
+use app\annotation\{Auth, Doc, Logger};
 use app\common\cms\AuthMap;
 use think\annotation\route\{
-    Group,Route,Validate
+    Group,Route
 };
-use app\validate\cms\User as UserValidate;
-use app\common\log\Logger;
-use app\common\authorize\Jwt;
 use app\model\LinUser;
 
 /**
@@ -37,20 +34,19 @@ class Admin
      */
     public function changeUserPassword()
     {
-        LinUser::resetPassword(request()->param());
+        LinUser::resetPassword(request()->put());
         return writeJson(201, '', '密码修改成功');
     }
 
     /**
-     * @Route(value="password/:uid",method="PUT")
+     * @Route(value=":uid",method="DELETE")
      * @Auth(value="修改用户密码",group="管理员",hide="true")
-     * @LoggerAnnotation(value="删除了用户id为' . $uid . '的用户")
+     * @Logger(value="删除了用户id为 {%uid%} 的用户, {%q%} ")
      * @Doc(value="修改用户密码",group="管理.权限",hide="false")
      */
     public function deleteUser($uid)
     {
         LinUser::deleteUser($uid);
-        Hook::listen('logger', '删除了用户id为' . $uid . '的用户');
         return writeJson(201, '', '操作成功');
     }
 
