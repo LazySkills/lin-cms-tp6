@@ -63,6 +63,8 @@ final class Doc
                 $this->setPaaLoginOutRoute();
                 $this->setPaaRefreshRoute();
             })->middleware([\think\middleware\SessionInit::class]);
+        }else{
+            throw new \Exception("注解配置文件中'annotation.management'应该为true");
         }
     }
 
