@@ -59,7 +59,7 @@ function split_modules($auths, $module = 'module')
 
 function findAuthModule($auth)
 {
-    $authMap = (new AuthMap())->run();
+    $authMap = \app\common\cms\AuthMap::instance()->getData('false');
     foreach ($authMap as $key => $value) {
         foreach ($value as $k => $v) {
             if ($auth === $k) {
@@ -70,4 +70,5 @@ function findAuthModule($auth)
             }
         }
     }
+    return [];
 }

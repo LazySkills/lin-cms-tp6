@@ -15,5 +15,15 @@ return [
             'uniqueId' => '',
             'signature' => ''
         ]
+    ],
+    'file' => [
+        'image_type' => ['jpg','jpeg','png','gif'],
+        'video_type' => ['mp4'],
+        'validate' => [
+            'image' => 'file|filesize:1024 * 1024 * 2|fileExt:jpg,jpeg,png,gif',
+            'video' => 'file|filesize:1024 * 1024 * 20|fileExt:mp4',
+        ],
+        'store_dir' => 'uploads',
+        'nums' => 10
     ]
 ];

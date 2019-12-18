@@ -59,7 +59,7 @@ class User
     }
 
     /**
-     * @Route(value=" ",method="PUT")
+     * @Route("",method="PUT")
      * @JwtAnnotation()
      * @Doc(value="更新用户信息",group="管理.用户",hide="false")
      */

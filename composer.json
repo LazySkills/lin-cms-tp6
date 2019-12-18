@@ -22,7 +22,7 @@
         "lazyskills/think-annotation": "dev-master",
         "firebase/php-jwt": "^5.0",
         "topthink/think-view": "^1.0.5",
-        "topthink/think-migration": "^2.0"
+        "topthink/think-migration": "^3.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",

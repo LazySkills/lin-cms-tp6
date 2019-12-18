@@ -4,9 +4,9 @@
 namespace app\exception\cms;
 
 
-class LinGroupException extends \Exception
+class LinFileException extends \Exception
 {
-    protected $message = '暂无数据';
+    protected $message = '文件不存在';
     protected $code = 400;
-    protected $error_code = 1102;
+    protected $error_code = 1104;
 }

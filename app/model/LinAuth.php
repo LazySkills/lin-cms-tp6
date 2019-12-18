@@ -4,6 +4,8 @@
 namespace app\model;
 
 
+use app\exception\cms\LinAuthException;
+
 /**
  * 管理系统平台权限
  * Class LinAuth
@@ -22,13 +24,17 @@ class LinAuth extends BaseModel
     }
 
     public static function dispatchAuths(array $params = []){
-        foreach ($params['auths'] as $value) {
-            $auth = self::where(['group_id' => $params['group_id'], 'auth' => $value])->find();
-            if (!$auth) {
-                $authItem = findAuthModule($value);
-                $authItem['group_id'] = $params['group_id'];
-                self::create($authItem);
+        try{
+            foreach ($params['auths'] as $value) {
+                $auth = self::where(['group_id' => $params['group_id'], 'auth' => $value])->find();
+                if (!$auth) {
+                    $authItem = findAuthModule($value);
+                    $authItem['group_id'] = $params['group_id'];
+                    self::create($authItem);
+                }
             }
+        }catch (\Exception $exception){
+            throw new LinAuthException("配置权限不存在");
         }
     }
 }
