@@ -20,4 +20,15 @@ class LinAuth extends BaseModel
             ->toArray();
         return $result;
     }
+
+    public static function dispatchAuths(array $params = []){
+        foreach ($params['auths'] as $value) {
+            $auth = self::where(['group_id' => $params['group_id'], 'auth' => $value])->find();
+            if (!$auth) {
+                $authItem = findAuthModule($value);
+                $authItem['group_id'] = $params['group_id'];
+                self::create($authItem);
+            }
+        }
+    }
 }

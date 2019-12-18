@@ -10,9 +10,7 @@ use app\annotation\{
 use think\annotation\route\{
     Group,Route
 };
-use app\model\{
-    LinUser,LinGroup
-};
+use app\model\{LinAuth, LinUser, LinGroup};
 
 /**
  * Class Admin  cms权限管理
@@ -80,6 +78,30 @@ class Admin
     }
 
     /**
+     * @Route(value="remove",method="POST")
+     * @Auth(value="删除多个权限",group="管理员",hide="true")
+     * @Doc(value="删除多个权限",group="管理.权限",hide="false")
+     */
+    public function removeAuths()
+    {
+        LinAuth::where(['group_id' => request()->post('group_id'), 'auth' => request()->post('auths')])
+            ->delete();
+        return writeJson(201, '', '删除权限成功');
+    }
+
+    /**
+     * @Route(value="/dispatch/patch",method="POST")
+     * @Auth(value="分配多个权限",group="管理员",hide="true")
+     * @Logger(value="修改了id为 {group_id} 的权限")
+     * @Doc(value="分配多个权限",group="管理.权限",hide="false")
+     */
+    public function dispatchAuths()
+    {
+        LinAuth::dispatchAuths(request()->post());
+        return writeJson(201, '', '添加权限成功');
+    }
+
+    /**
      * @Route(value="group/all",method="GET")
      * @Auth(value="查询所有权限组",group="管理员",hide="true")
      * @Doc(value="查询所有权限组",group="管理.权限",hide="false")
@@ -105,6 +127,34 @@ class Admin
 
         return json($result,200);
     }
+
+    /**
+     * @Route(value="group",method="POST")
+     * @Auth(value="新建权限组",group="管理员",hide="true")
+     * @Doc(value="新建权限组",group="管理.权限",hide="false")
+     */
+    public function createGroup()
+    {
+        LinGroup::createGroup(request()->post());
+        return writeJson(201, '', '成功');
+    }
+
+    /**
+     * @Route(value="group/:id",method="PUT")
+     * @Auth(value="更新一个权限组",group="管理员",hide="true")
+     * @Doc(value="更新一个权限组",group="管理.权限",hide="false")
+     */
+    public function updateGroup($id)
+    {
+
+        $group = LinGroup::where('id',$id)->find();
+        if (!$group) {
+            throw new LinGroupException('指定的分组不存在');
+        }
+        $group->save(request()->put());
+        return writeJson(201, '', '更新分组成功');
+    }
+
 
     /**
      * @Route(value="group/:id",method="DELETE")
