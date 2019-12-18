@@ -89,7 +89,6 @@ class LinUser extends BaseModel
             throw new LinUserException();
         }
         $auths = LinAuth::getAuthByGroupID($user['group_id']);
-
         $auths = empty($auths) ? [] : split_modules($auths);
 
         $user['auths'] = $auths;

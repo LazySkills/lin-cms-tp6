@@ -25,7 +25,6 @@ class LinGroup extends BaseModel
         $auths = LinAuth::getAuthByGroupID($group['id']);
 
         $group['auths'] = empty($auths) ? [] : split_modules($auths);;
-
         return $group;
 
     }
@@ -37,7 +36,7 @@ class LinGroup extends BaseModel
             throw new LinGroupException('分组已存在');
         }
 
-        Db::startTrans();
+        BaseModel::startTrans();
         try {
             $group = (new LinGroup())->allowField(true)->create($params);
 
@@ -50,27 +49,31 @@ class LinGroup extends BaseModel
             }
 
             (new LinAuth())->saveAll($auths);
-            Db::commit();
+            BaseModel::commit();
         } catch (\Exception $ex) {
-            Db::rollback();
+            BaseModel::rollback();
             throw new LinGroupException('分组创建失败');
         }
     }
 
     /**
      * @param $id
-     * @return mixed
+     * @return bool
+     * @throws LinGroupException
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
      */
     public static function deleteGroupAuth($id)
     {
-        $user = self::get($id,'auth');
-        $deleteGroup = $user->together('auth')->delete();
-        if(!$deleteGroup)
-        {
-            throw new GroupException([
-                'error_code' => 30005,
-                'msg' => '分组删除失败'
-            ]);
+        $user = self::with('auth')->where('id',$id)->find();
+        if (!$user){
+            throw new LinGroupException("分组删除失败");
+        }
+
+        $deleteGroup = $user->together(['auth'])->delete();
+        if(!$deleteGroup){
+            throw new LinGroupException('分组删除失败');
         }
         return $deleteGroup;
 
@@ -81,6 +84,6 @@ class LinGroup extends BaseModel
      */
     public function auth()
     {
-        return $this -> hasMany('LinAuth','group_id','id');
+        return $this->hasMany(LinAuth::class,'group_id','id');
     }
 }

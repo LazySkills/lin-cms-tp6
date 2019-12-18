@@ -16,8 +16,8 @@ class LinAuth extends BaseModel
     public static function getAuthByGroupID(?int $group_id){
         if (empty($group_id)) return [];
         $result = self::where('group_id', $group_id)
-            ->field('group_id', true)
-            ->select()->toArray();
+            ->select()
+            ->toArray();
         return $result;
     }
 }

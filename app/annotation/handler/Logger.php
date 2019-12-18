@@ -13,18 +13,23 @@ final class Logger extends Handler
     public function func(\ReflectionMethod $refMethod, Annotation $annotation, \think\route\RuleItem &$rule)
     {
         if ($this->isCurrentMethod($refMethod,$rule)){
-            $message = $annotation->value;
-            $args = [];
             $params = $this->getParams($rule);
-            preg_match('/(^{%[\.?*]%})/', $message, $args);
-            dump($args);die;
-            $message = sprintf($message,$args);
-            dump($args);
-            dump($message);
-            \app\common\log\Logger::annotation($annotation,$params);
+            $message = $this->getMessage($annotation->value,$params);
+            \app\common\log\Logger::annotation($message);
         }else{
             return ;
         }
+    }
+
+    public function getMessage(string $message,array $params = []){
+        $args = [];
+        $value = [];
+        preg_match_all('/({.*})/U', $message, $args);
+        foreach ($args[0] as $arg){
+            $key = str_replace(['{','}'],'',$arg);
+            array_push($value,$params[$key] ?? '');
+        }
+        return str_replace($args[0],$value,$message) ?? '';
     }
 
 
