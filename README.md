@@ -192,8 +192,8 @@ You can exit with `CTRL-C`
 
 万分感谢，以下排名不分先后
 
-- [`ThinkPHP v6`](https://www.kancloud.cn/manual/thinkphp6_0)
-- [`LazySkills/PAA-ThinkPHP6`](https://github.com/LazySkills/PAA-thinkphp6)
+- [`ThinkPHP v6`](https://www.kancloud.cn/manual/thinkphp6_0) ThinkPHP6.0官方文档
+- [`LazySkills/PAA-ThinkPHP6`](https://github.com/LazySkills/PAA-thinkphp6) 优秀的TP6注解框架
 - [`LazySkills/think-annotation`](https://github.com/LazySkills/think-annotation) 优秀注解扩展
 - [`firebase/php-jwt`](https://packagist.org/packages/firebase/php-jwt) `php-jwt`验证器
 - [`sentsin/layui`](https://github.com/sentsin/layui) 优秀前端框架
