@@ -23,7 +23,7 @@ return [
             'image' => 'file|filesize:1024 * 1024 * 2|fileExt:jpg,jpeg,png,gif',
             'video' => 'file|filesize:1024 * 1024 * 20|fileExt:mp4',
         ],
-        'store_dir' => 'uploads',
+        'store_dir' => 'storage',
         'nums' => 10
     ]
 ];

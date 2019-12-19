@@ -38,13 +38,7 @@ class LinLog extends BaseModel
         $logs = $logs->limit($start, $count)->select();
         if (!$logs) throw new LinLogException();
 
-        return [
-            'items' => $logs,
-            'total' => $totalNums,
-            'count' => $count,
-            'page' => $start / $count,
-            'total_page' => ceil($totalNums / $count)
-        ];
+        return pageDate($logs,$totalNums,$start,$count);
     }
 
     public function searchUserNameAttr(Query $query, $value, $data)

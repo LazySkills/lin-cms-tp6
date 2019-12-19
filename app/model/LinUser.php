@@ -5,6 +5,7 @@ namespace app\model;
 
 
 use app\exception\cms\LinUserException;
+use think\model\concern\SoftDelete;
 
 /**
  * 管理系统平台用户
@@ -13,7 +14,8 @@ use app\exception\cms\LinUserException;
  */
 class LinUser extends BaseModel
 {
-    protected $defaultSoftDelete="delete_time";
+    use SoftDelete;
+    protected $deleteTime="delete_time";
     protected $autoWriteTimestamp="timestamp";
     protected $hidden = ['delete_time','update_time','password'];
 
@@ -30,9 +32,7 @@ class LinUser extends BaseModel
         $userList = $userList->limit($start, $count)->select();
 
         $userList = array_map(function ($item) {
-            $item['group_name'] = empty($item['group_id'])
-                ? '超级管理员'
-                : LinGroup::where('id','=',$item['group_id'])->column('name');
+            $item['group_name'] = LinGroup::where('id','=',$item['group_id'])->value('name') ?? '暂无';
             return $item;
         }, $userList->toArray());
 

@@ -4,6 +4,7 @@
 namespace app\model;
 
 use app\exception\cms\LinGroupException;
+use think\facade\Db;
 
 /**
  * 管理系统平台用户分组
@@ -36,9 +37,9 @@ class LinGroup extends BaseModel
             throw new LinGroupException('分组已存在');
         }
 
-        BaseModel::startTrans();
+        Db::startTrans();
         try {
-            $group = (new LinGroup())->allowField(true)->create($params);
+            $group = (new LinGroup())->create($params);
 
             $auths = [];
 
@@ -49,9 +50,9 @@ class LinGroup extends BaseModel
             }
 
             (new LinAuth())->saveAll($auths);
-            BaseModel::commit();
+            Db::commit();
         } catch (\Exception $ex) {
-            BaseModel::rollback();
+            Db::rollback();
             throw new LinGroupException('分组创建失败');
         }
     }

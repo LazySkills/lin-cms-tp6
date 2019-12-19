@@ -6,18 +6,30 @@ namespace app\common\cms;
 
 
 use app\exception\cms\LinFileException;
+use app\model\LinFile;
 use think\file\UploadedFile;
+use think\facade\Filesystem;
+use think\exception\ValidateException;
 
 class FileUploader
 {
     protected $files = [];
+    /**
+     * @var UploadedFile $file
+     */
+    protected $file;
+    /**
+     * @var string
+     */
+    protected $key;
+    protected $data = [];
 
     public function __construct(array $files)
     {
         if (empty($files)){
             throw new LinFileException("未找到符合条件的文件资源");
         }
-        if (count($files) < config('lincms.file.nums')){
+        if (count($files) >= config('lincms.file.nums')){
             throw new LinFileException("文件数量过多");
         }
         $this->files = $files;
@@ -25,12 +37,24 @@ class FileUploader
 
     public function upload()
     {
-
+        foreach ($this->files as $key => $file){
+            $this->file = $file;
+            $this->key = $key;
+            $this->verify();
+            if ($linFile = $this->checkStoreDb($file)){
+                $this->data[$this->key] = $linFile;
+            }else{
+                $info = $this->store();
+                $this->data[$this->key] = $this->storeDb($info);
+            }
+            $this->data[$this->key]['key'] = $this->key;
+        }
+        return array_values($this->data);
     }
 
-    protected function verify(UploadedFile $file)
+    protected function verify()
     {
-        $type = $file->getType();
+        $type = $this->file->getOriginalExtension();
         if (in_array($type,config('lincms.file.image_type'))){
             $rule = config('lincms.file.validate.image');
         }elseif (in_array($type,config('lincms.file.video_type'))){
@@ -40,31 +64,62 @@ class FileUploader
         }
         if(empty($rule)) return;
         try {
-            validate($rule)->check([$file]);
-        } catch (\think\exception\ValidateException $e) {
+            validate([
+                $this->key=>[
+                    'fileSize'=>1024*1024*2,
+                    'fileExt'=>['jpg','jpeg','png'],
+                ]
+            ])->check([$this->key=>$this->file]);
+        } catch (ValidateException $e) {
             throw new LinFileException($e->getMessage());
         }
     }
 
-    protected function store_db(UploadedFile $file)
+    protected function checkStoreDb(UploadedFile $file)
     {
-
+        if ($linFile = LinFile::where(['md5' => $this->file->md5()])->find()){
+            return $this->getPublicData($linFile['id'],$linFile['path']);
+        }
+        return false;
     }
 
-    protected function store(string $name,UploadedFile $file)
+    protected function store()
     {
-        $info = \think\facade\Filesystem::putFile(
-            root_path().'/public/'.config_path('lincms.file.store_dir').'/'.$name,
-            $file
-        );
-        dump($info);die;
+        try{
+            $info = Filesystem::disk('public')->putFile(
+                $this->key,
+                $this->file
+            );
+            if ($info === false) throw new \Exception('上传失败');
+            return $info;
+        }catch (\Exception $exception){
+            throw new LinFileException($exception->getMessage());
+        }
     }
 
-    protected function generateMd5(UploadedFile $file)
+    protected function storeDb(string $path)
     {
-        $md5 = md5_file($file->getOriginalName());
-        return $md5;
+        try{
+            $linFile = LinFile::create([
+                'name' => basename($path),
+                'path' => $path,
+                'size' => $this->file->getSize(),
+                'extension' => $this->file->getOriginalExtension(),
+                'md5' => $this->file->md5(),
+                'type' => 1
+            ]);
+            return $this->getPublicData($linFile['id'],$linFile['path']);
+        }catch (\Exception $exception){
+            throw new LinFileException('储存文件失败');
+        }
     }
 
+    protected function getPublicData($id,$path){
+        return [
+            'id' => $id,
+            'path' => $path,
+            'url' => request()->scheme().'://'.request()->host(). '/' . config('lincms.file.store_dir') . '/' . $path
+        ];
+    }
 
 }

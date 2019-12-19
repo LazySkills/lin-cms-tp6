@@ -31,6 +31,7 @@ class File
             throw new LinFileException();
         }
         $result = (new FileUploader($files))->upload();
+        return json($result,200);
     }
 
 
