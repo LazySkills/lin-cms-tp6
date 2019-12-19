@@ -188,6 +188,18 @@ You can exit with `CTRL-C`
 - [ ] 常用异步任务封装
 
 
+## 感谢以下开源产品
+
+万分感谢，以下排名不分先后
+
+- [`ThinkPHP v6`](https://www.kancloud.cn/manual/thinkphp6_0)
+- [`LazySkills/PAA-ThinkPHP6`](https://github.com/LazySkills/PAA-thinkphp6)
+- [`LazySkills/think-annotation`](https://github.com/LazySkills/think-annotation) 优秀注解扩展
+- [`firebase/php-jwt`](https://packagist.org/packages/firebase/php-jwt) `php-jwt`验证器
+- [`sentsin/layui`](https://github.com/sentsin/layui) 优秀前端框架
+
+再次感谢，希望大家能帮这几个项目点点`star`。
+
 ## 讨论交流
 
 ### QQ 交流群
