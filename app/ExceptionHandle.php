@@ -53,7 +53,6 @@ class ExceptionHandle extends Handle
     {
         $this->report($e);
 
-        dump($e);die;
         // 开启debug开启时，走系统错误
         if (env('APP_DEBUG')) {
             // 其他错误交给系统处理

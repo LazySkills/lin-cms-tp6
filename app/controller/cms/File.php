@@ -2,11 +2,11 @@
 
 namespace app\controller\cms;
 
-use app\annotation\{
+use LinCmsTp6\common\FileUploader;
+use LinCmsTp6\exception\LinFileException;
+use paa\annotation\{
     Doc
 };
-use app\common\cms\FileUploader;
-use app\exception\cms\LinFileException;
 use think\annotation\route\{
     Group,Route
 };

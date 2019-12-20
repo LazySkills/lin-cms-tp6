@@ -2,15 +2,18 @@
 
 namespace app\controller\cms;
 
-use app\common\cms\AuthMap;
-use app\exception\cms\LinGroupException;
-use app\annotation\{
-    Auth, Doc, Logger
+use LinCmsTp6\common\AuthMap;
+use LinCmsTp6\exception\LinGroupException;
+use paa\annotation\{
+    Doc
+};
+use LinCmsTp6\annotation\{
+    Auth,Logger
 };
 use think\annotation\route\{
     Group,Route
 };
-use app\model\{LinAuth, LinUser, LinGroup};
+use LinCmsTp6\model\{LinAuth, LinUser, LinGroup};
 
 /**
  * Class Admin  cms权限管理

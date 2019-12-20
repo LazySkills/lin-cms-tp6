@@ -3,10 +3,9 @@
 
 namespace app\controller\cms;
 
-use app\annotation\{
-    Auth,Doc
-};
-use app\model\LinLog;
+use LinCmsTp6\annotation\Auth;
+use LinCmsTp6\model\LinLog;
+use paa\annotation\Doc;
 use think\annotation\route\{
     Group,Route
 };

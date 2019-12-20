@@ -2,17 +2,17 @@
 
 namespace app\controller\cms;
 
-use app\annotation\{
-    Doc,Jwt as JwtAnnotation,Logger as LoggerAnnotation
+use paa\annotation\{
+    Doc,Jwt as JwtAnnotation
 };
+use LinCmsTp6\annotation\Logger as LoggerAnnotation;
 use think\annotation\route\{
     Group,Route,Validate
 };
 use app\validate\cms\User as UserValidate;
-use app\common\log\Logger;
-use app\common\authorize\Jwt;
-use app\model\LinUser;
-
+use paa\common\authorize\Jwt;
+use LinCmsTp6\common\Logger;
+use LinCmsTp6\model\LinUser;
 /**
  * Class User cms用户管理
  * @Group("cms/user")

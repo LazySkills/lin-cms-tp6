@@ -3,7 +3,8 @@
 
 namespace app\controller\v1;
 
-use app\annotation\{Auth, Doc, Logger};
+use LinCmsTp6\annotation\{Auth, Logger};
+use paa\annotation\Doc;
 use think\annotation\route\{
     Group,Route
 };
