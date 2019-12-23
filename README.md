@@ -81,7 +81,7 @@ Lin 的服务端框架是基于 ThinkPHP6.0的，所以如果你比较熟悉Thin
 ## 获取工程项目
 
 ```bash
-git clone https://github.com/ChenJinchuang/lin-cms-tp6.git
+git clone https://github.com/LazySkills/lin-cms-tp6.git
 ```
 
 > 执行完毕后会生成lin-cms-tp6目录
