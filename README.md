@@ -20,6 +20,10 @@
 * 在上一点的基础上，我们会尝试加入一些自己的想法并实现。
 * 局限于本人水平，有些地方还需重构，已经纳入了计划中，当然也会有我没考虑到的，希望有更多人参与进来一起完善，毕竟PHP作为世界上最好的语言不能缺席。
 
+## 线上文档地址(完善)
+
+文档：[LazySkills/Lin-Cms-Tp6](https://lazyskills.github.io/views/php/lin-cms-tp6/)
+
 ## 线上 Demo
 
 可直接参考官方团队的线上Demo：[http://face.cms.7yue.pro/](http://face.cms.7yue.pro/)，用户名:super，密码：123456
