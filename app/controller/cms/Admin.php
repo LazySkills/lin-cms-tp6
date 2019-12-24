@@ -4,9 +4,7 @@ namespace app\controller\cms;
 
 use LinCmsTp6\common\AuthMap;
 use LinCmsTp6\exception\LinGroupException;
-use paa\annotation\{
-    Doc
-};
+use paa\annotation\Doc;
 use LinCmsTp6\annotation\{
     Auth,Logger
 };
