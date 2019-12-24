@@ -20,7 +20,6 @@
         "topthink/framework": "^6.0.0",
         "topthink/think-orm": "^2.0",
         "topthink/think-view": "^1.0.5",
-        "topthink/think-migration": "^3.0",
         "lazyskills/think-annotation": "dev-master",
         "lazyskills/paa-thinkphp6": "dev-master",
         "lazyskills/lin-cms-tp6": "dev-master"
@@ -43,7 +42,8 @@
     "scripts": {
         "post-autoload-dump": [
             "@php think service:discover",
-            "@php think vendor:publish"
+            "@php think vendor:publish",
+            "cp -R vendor/lazyskills/lin-cms-tp6/src/database database"
         ]
     }
 }
