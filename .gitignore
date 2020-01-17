@@ -11,3 +11,8 @@
 /runtime/storage
 /runtime/*.php
 composer.lock
+/config/lincms.php
+/config/paa.php
+/config/annotation.php
+/public/annotation.json
+/database

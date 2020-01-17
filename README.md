@@ -47,7 +47,7 @@ Lin CMS 的构筑思想是有其自身特点的。下面我们阐述一些 Lin �
 首先，传统的网站开发更多的是采用服务端渲染的方式，需用使用一种模板语言在服务端完成页面渲染：比如 JinJa2、Jade 等。 服务端渲染的好处在于可以比较好的支持 SEO，但作为内部使用的 CMS 管理系统，SEO 并不重要。
 
 但一个不可忽视的事实是，服务器渲染的页面到底是由前端开发者来完成，还是由服务器开发者来完成？其实都不太合适。现在已经没有多少前端开发者是了解这些服务端模板语言的，而服务器开发者本身是不太擅长开发页面的。那还是分开吧，前端用最熟悉的 Vue 写 JS 和 CSS，而服务器只关注自己的 API 即可。
-
+·
 其次，单页面应用程序的体验本身就要好于传统网站。
 
 更多关于Lin CMS的介绍请访问[Lin CMS线上文档](http://doc.cms.7yue.pro/)
@@ -58,7 +58,7 @@ Lin 已经内置了 CMS 中最为常见的需求：用户管理、权限管理�
 
 ## Lin CMS TP6 的特点
 
-在当前项目的版本`(0.0.1)`中，特点更多来自于`ThinkPHP 6.0`框架本身带来的特点。通过充分利用框架的特性，实现高效的后端使用、开发，也就是说，只要你熟悉`ThinkPHP`框架，那么对于理解使用和二次开发本项目是没有难度的，即便对于框架的某些功能存在疑问也完全可以通过ThinkPHP官方的开发手册找到答案。当然我们更欢迎你通过[Issues](https://github.com/ChenJinchuang/lin-cms-tp5/issues)来向我们提问:)
+在当前项目的版本`(0.0.1)`中，特点更多来自于`ThinkPHP 6.0`框架本身带来的特点。通过充分利用框架的特性，实现高效的后端使用、开发，也就是说，只要你熟悉`ThinkPHP`框架，那么对于理解使用和二次开发本项目是没有难度的，即便对于框架的某些功能存在疑问也完全可以通过ThinkPHP官方的开发手册找到答案。当然我们更欢迎你通过[Issues](https://lazyskills.github.io/views/php/lin-cms-tp6/)来向我们提问:)
 
 在下一个版本中`(>0.0.1)`,我们会在框架的基础上融入一些自己的东西来增强或者优化框架的使用、开发体验。
 
@@ -208,9 +208,19 @@ You can exit with `CTRL-C`
 
 ### QQ 交流群
 
+#### 林间有风官方群
+
 QQ 群号：643205479
 
 <img class="QR-img" width="258" height="300" src="http://imglf3.nosdn0.126.net/img/Qk5LWkJVWkF3Nmdyc2xGcUtScEJLOVV1clErY1dJa0FsQ3E1aDZQWlZHZ2dCbSt4WXA1V3dRPT0.jpg?imageView&thumbnail=1680x0&quality=96&stripmeta=0&type=jpg">
+
+#### Lin-Cms-Tp6交流群
+
+QQ 群号：669813444
+
+<img class="QR-img" width="258" height="300" src="https://lazyskills.github.io/lin-cms-tp6%E5%90%8E%E6%8F%B4%E4%BC%9A.png">
+
+
 
 ### 微信公众号
 
