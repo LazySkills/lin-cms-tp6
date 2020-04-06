@@ -43,7 +43,7 @@
         "post-autoload-dump": [
             "@php think service:discover",
             "@php think vendor:publish",
-            "cp -R vendor/lazyskills/lin-cms-tp6/src/database database"
+            "@php think lincms:init"
         ]
     }
 }

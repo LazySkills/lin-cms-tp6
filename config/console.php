@@ -7,6 +7,6 @@ return [
     'commands' => [
         \think\annotation\command\make\Annotation::class,
         \think\annotation\command\make\Handler::class,
-        \think\annotation\command\make\Doc::class
+        \LinCmsTp6\command\Init::class
     ],
 ];
