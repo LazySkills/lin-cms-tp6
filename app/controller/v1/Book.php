@@ -6,9 +6,11 @@ namespace app\controller\v1;
 use LinCmsTp6\annotation\{Auth, Logger};
 use paa\annotation\Doc;
 use think\annotation\route\{
-    Group,Route
+    Group
 };
 use app\model\Book as BookModel;
+use think\annotation\Route;
+
 /**
  * Class Book
  * @Group(value="v1/book")
@@ -63,7 +65,7 @@ class Book
     }
 
     /**
-     * @Route(value="",method="DELETE")
+     * @Route(value=":bid",method="DELETE")
      * @Auth(value="删除图书",group="图书",hide="false")
      * @Logger(value="删除了id为 {bid} 的图书")
      * @Doc(value="删除图书",group="插件.图书",hide="false")

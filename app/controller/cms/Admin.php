@@ -8,10 +8,10 @@ use paa\annotation\Doc;
 use LinCmsTp6\annotation\{
     Auth,Logger
 };
-use think\annotation\route\{
-    Group,Route
-};
+
 use LinCmsTp6\model\{LinAuth, LinUser, LinGroup};
+use think\annotation\Route;
+use think\annotation\route\Group;
 
 /**
  * Class Admin  cms权限管理

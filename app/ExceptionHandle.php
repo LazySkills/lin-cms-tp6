@@ -59,6 +59,7 @@ class ExceptionHandle extends Handle
             return parent::render($request, $e);
         }
 
+
         // 添加自定义异常处理机制
         return \response(
             [

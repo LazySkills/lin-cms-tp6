@@ -20,9 +20,9 @@
         "topthink/framework": "^6.0.0",
         "topthink/think-orm": "^2.0",
         "topthink/think-view": "^1.0.5",
-        "lazyskills/think-annotation": "dev-master",
-        "lazyskills/paa-thinkphp6": "dev-master",
-        "lazyskills/lin-cms-tp6": "dev-master"
+        "lazyskills/think-annotation": "dev-dev",
+        "lazyskills/paa-thinkphp6": "dev-dev",
+        "lazyskills/lin-cms-tp6": "dev-dev"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",

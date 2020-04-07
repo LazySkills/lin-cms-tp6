@@ -6,9 +6,8 @@ namespace app\controller\cms;
 use LinCmsTp6\annotation\Auth;
 use LinCmsTp6\model\LinLog;
 use paa\annotation\Doc;
-use think\annotation\route\{
-    Group,Route
-};
+use think\annotation\Route;
+use think\annotation\route\Group;
 
 /**
  * Class Log

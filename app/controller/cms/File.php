@@ -4,12 +4,10 @@ namespace app\controller\cms;
 
 use LinCmsTp6\common\FileUploader;
 use LinCmsTp6\exception\LinFileException;
-use paa\annotation\{
-    Doc
-};
-use think\annotation\route\{
-    Group,Route
-};
+use paa\annotation\Doc;
+use think\annotation\Route;
+use think\annotation\route\Group;
+
 
 /**
  * Class File 文件管理
